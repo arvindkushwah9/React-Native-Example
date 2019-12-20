@@ -5,7 +5,10 @@ import Forgot from './Forgot';
 import Registration from './Registration';
 import Home from './Home';
 import Welcome from './Welcome';
-// import axios from 'axios';
+import { getUser } from '../actions/index';
+import { loginUser } from '../actions/auth';
+import { connect } from 'react-redux';
+
 
 export class Login extends Component {
 
@@ -24,30 +27,11 @@ export class Login extends Component {
   }
 
 	componentDidMount() {
-    console.log('login*****************');
-     // Actions.forgot()
+    console.log('Login page', this.props);
   }
 
   loginUser() {
-    const { email, password } = this.state;
-    // this.setState({ error: '', loading: true });
-    const headers = {
-      'Content-Type': 'application/json'
-     }
-    var user = {user: {email: email, password: password}}
-    // axios.post("http://192.168.1.8:3000/api/v1/sign_in", user,
-    //   {
-    //   	headers: headers
-    // })
-    // .then((response) => {
-    //   console.log(response);
-    //   alert(response.data.message)
-    //   Actions.welcome()
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    //   this.onLoginFail();
-    // });
+    this.props.loginUser(this.state)
   }
 
   onLoginFail() {
@@ -149,4 +133,14 @@ const styles = StyleSheet.create({
     color: 'white',
   }
 });
-export default Login;
+const mapStateToProps = state => {
+  return {
+    storeObject: state
+  }
+}
+mapDispatchToProps = dispatch => {
+  return {
+    loginUser: params => dispatch(loginUser(params)),
+  };
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

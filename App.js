@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { AppRegistry, View } from 'react-native';
-import Routes from './src/Router/Routes.js'
+import Routes from './src/Router/Routes.js';
 import SplashScreen from 'react-native-splash-screen';
+import FlashMessage from "react-native-flash-message";
+import { genericStyles } from './src/Styles/genericStyles'
+
 
 class App extends Component {
 
@@ -9,10 +12,13 @@ class App extends Component {
     SplashScreen.hide()
   }
 
+  render() {
 
-   render() {
-      return (
-         <Routes />
+      return ( 
+       <View style={genericStyles.container}>     
+       <Routes />
+       <FlashMessage position="top" />
+       </View>
       )
    }
 }
