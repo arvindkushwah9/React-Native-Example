@@ -4,11 +4,10 @@ import { View, Text, TextInput, TouchableHighlight, Image, Alert,TouchableOpacit
 import { Actions } from 'react-native-router-flux';
 import colors from "../Styles/color";
 import { getUsers } from '../actions/index';
-import { logoutUser } from '../actions/auth';
 import { connect } from 'react-redux';
 import { showMessage, hideMessage } from "react-native-flash-message";
 
-export class Home extends Component {
+export class Landing extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -18,33 +17,34 @@ export class Home extends Component {
   }
 
   componentDidMount() {
-    // console.log('Home Page props', this.props);
-  }
-
-  logout() {
-    this.props.logoutUser(this.state)
+    // console.log('Landing Page props', this.props);
   }
 
   render() {
    return (
    		<View style={styles.container}>
         <TouchableHighlight style={styles.buttonContainer} >
-          <Text>Welcome to Home</Text>
+          <Text>Welcome</Text>
         </TouchableHighlight>
         <TouchableHighlight style={[styles.buttonContainer, styles.loginButton]}
          onPress={() => Actions.login()}>
-          <Text style={styles.loginText}>Go To Services</Text>
+          <Text style={styles.loginText}>Go To Login Page</Text>
         </TouchableHighlight>
         <TouchableHighlight 
          style={[styles.buttonContainer, styles.loginButton]}
          onPress={() => Actions.register()}>
-          <Text style={styles.setting}>Go To Dashboard</Text>
+          <Text style={styles.setting}>Go To Registration Page</Text>
         </TouchableHighlight>
         <TouchableHighlight
          style={[styles.buttonContainer, styles.loginButton]}
-          onPress={() => this.logout() }
+          onPress={() => {
+            showMessage({
+              message: "Hello Hello",
+              type: "info",
+            });
+          }}
         >
-          <Text style={styles.setting}>Logout</Text>
+          <Text style={styles.setting}>Click me</Text>
         </TouchableHighlight>
       </View>
    )
@@ -80,7 +80,6 @@ const mapStateToProps = state => {
 mapDispatchToProps = dispatch => {
   return {
     getUser: params => dispatch(getUsers(params)),
-    logoutUser: params => dispatch(logoutUser(params)),
   };
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Landing)

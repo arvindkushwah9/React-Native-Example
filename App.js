@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, View } from 'react-native';
+import { AppRegistry, View , ActivityIndicator} from 'react-native';
 import Routes from './src/Router/Routes.js';
 import SplashScreen from 'react-native-splash-screen';
 import FlashMessage from "react-native-flash-message";
@@ -15,9 +15,10 @@ class App extends Component {
   render() {
 
       return ( 
-       <View style={genericStyles.container}>     
-       <Routes />
-       <FlashMessage position="top" />
+        <View style={genericStyles.container}>     
+        <Routes />
+        <FlashMessage position="top" />
+        
        </View>
       )
    }

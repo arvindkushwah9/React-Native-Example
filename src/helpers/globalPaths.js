@@ -3,3 +3,5 @@
 
 export const LOCAL_URL = 'https://doordash-parsur.herokuapp.com/'
 export const BASE_URL = 'https://doordash-parsur.herokuapp.com/'
+export const stripe_publishable = ''
+export const stripe_secret = ''

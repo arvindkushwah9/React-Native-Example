@@ -1,13 +1,14 @@
 import React, { Component, Fragment } from 'react';
-import { View, Text, TextInput, TouchableHighlight, Image, Alert,TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableHighlight, Image, Alert,TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Forgot from './Forgot';
 import Registration from './Registration';
 import Home from './Home';
-import Welcome from './Welcome';
+import Root from './Root';
 import { getUser } from '../actions/index';
 import { loginUser } from '../actions/auth';
 import { connect } from 'react-redux';
+import { genericStyles } from '../Styles/genericStyles'
 
 
 export class Login extends Component {
@@ -17,6 +18,7 @@ export class Login extends Component {
     this.state = {
       email   : '',
       password: '',
+      loading: false,
     };
     this.loginUser = this.loginUser.bind(this);
     this.onLoginFail = this.onLoginFail.bind(this);
@@ -27,10 +29,11 @@ export class Login extends Component {
   }
 
 	componentDidMount() {
-    console.log('Login page', this.props);
+    // console.log('Login page', this.props);
   }
 
   loginUser() {
+    this.setState({ loading: true})
     this.props.loginUser(this.state)
   }
 
@@ -41,11 +44,24 @@ export class Login extends Component {
     });
   }
 
+
+  Loader() {
+    if (this.state.loading) {
+      return (
+        <View style={[genericStyles.container, genericStyles.horizontal]}>
+          <ActivityIndicator size="large" color="#0000ff" />
+        </View> 
+      )
+    }
+  }
+
+
   render() {
   	const { email, password, error, loading } = this.state;
     const { form, section, errorTextStyle } = styles;
     return (
      <View style={styles.container}>
+         {this.Loader()}
      		<TouchableHighlight style={styles.buttonContainer} >
             <Text>Login</Text>
         </TouchableHighlight>
